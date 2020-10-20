@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dlm.hmp.mapper.ErrorInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.dlm.hmp.pojo.ErrorInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="error_content" property="errorContent" jdbcType="VARCHAR" />
+    <result column="error_type" property="errorType" jdbcType="INTEGER" />
+    <result column="error_status" property="errorStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, openid, phone, error_content, error_type, error_status, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dlm.hmp.pojo.ErrorInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from error_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from error_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from error_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dlm.hmp.pojo.ErrorInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into error_info (openid, phone, error_content, 
+      error_type, error_status, create_time, 
+      update_time)
+    values (#{openid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{errorContent,jdbcType=VARCHAR}, 
+      #{errorType,jdbcType=INTEGER}, #{errorStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dlm.hmp.pojo.ErrorInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into error_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="errorContent != null" >
+        error_content,
+      </if>
+      <if test="errorType != null" >
+        error_type,
+      </if>
+      <if test="errorStatus != null" >
+        error_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="errorContent != null" >
+        #{errorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null" >
+        #{errorType,jdbcType=INTEGER},
+      </if>
+      <if test="errorStatus != null" >
+        #{errorStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dlm.hmp.pojo.ErrorInfoExample" resultType="java.lang.Integer" >
+    select count(*) from error_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dlm.hmp.pojo.ErrorInfo" >
+    update error_info
+    <set >
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="errorContent != null" >
+        error_content = #{errorContent,jdbcType=VARCHAR},
+      </if>
+      <if test="errorType != null" >
+        error_type = #{errorType,jdbcType=INTEGER},
+      </if>
+      <if test="errorStatus != null" >
+        error_status = #{errorStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dlm.hmp.pojo.ErrorInfo" >
+    update error_info
+    set openid = #{openid,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      error_content = #{errorContent,jdbcType=VARCHAR},
+      error_type = #{errorType,jdbcType=INTEGER},
+      error_status = #{errorStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

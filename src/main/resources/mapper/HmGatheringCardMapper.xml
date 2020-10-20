@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dlm.hmp.mapper.HmGatheringCardMapper" >
+  <resultMap id="BaseResultMap" type="com.dlm.hmp.pojo.HmGatheringCard" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="hgc_id" property="hgcId" jdbcType="INTEGER" />
+    <result column="bloody_flag" property="bloodyFlag" jdbcType="INTEGER" />
+    <result column="household_code" property="householdCode" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="ranking" property="ranking" jdbcType="INTEGER" />
+    <result column="pregnant" property="pregnant" jdbcType="INTEGER" />
+    <result column="sec_name" property="secName" jdbcType="VARCHAR" />
+    <result column="mark_name" property="markName" jdbcType="VARCHAR" />
+    <result column="father_name" property="fatherName" jdbcType="VARCHAR" />
+    <result column="mother_name" property="motherName" jdbcType="VARCHAR" />
+    <result column="spouse_name" property="spouseName" jdbcType="VARCHAR" />
+    <result column="married_date" property="marriedDate" jdbcType="VARCHAR" />
+    <result column="birth_type" property="birthType" jdbcType="INTEGER" />
+    <result column="birth_date" property="birthDate" jdbcType="VARCHAR" />
+    <result column="be_birth_leap_month" property="beBirthLeapMonth" jdbcType="INTEGER" />
+    <result column="inherit" property="inherit" jdbcType="INTEGER" />
+    <result column="marriage" property="marriage" jdbcType="INTEGER" />
+    <result column="inherit_comment" property="inheritComment" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="career" property="career" jdbcType="VARCHAR" />
+    <result column="chu_ji" property="chuJi" jdbcType="VARCHAR" />
+    <result column="chu_zhui" property="chuZhui" jdbcType="VARCHAR" />
+    <result column="recruit_admitted" property="recruitAdmitted" jdbcType="INTEGER" />
+    <result column="external_migration" property="externalMigration" jdbcType="VARCHAR" />
+    <result column="line_guide_note" property="lineGuideNote" jdbcType="VARCHAR" />
+    <result column="ma_area" property="maArea" jdbcType="VARCHAR" />
+    <result column="ma_address_detail" property="maAddressDetail" jdbcType="VARCHAR" />
+    <result column="be_devoice" property="beDevoice" jdbcType="INTEGER" />
+    <result column="death_type" property="deathType" jdbcType="INTEGER" />
+    <result column="death_date" property="deathDate" jdbcType="VARCHAR" />
+    <result column="be_death_leap_month" property="beDeathLeapMonth" jdbcType="INTEGER" />
+    <result column="buried_place" property="buriedPlace" jdbcType="VARCHAR" />
+    <result column="story" property="story" jdbcType="VARCHAR" />
+    <result column="other_content" property="otherContent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, hgc_id, bloody_flag, household_code, member_name, gender, ranking, pregnant, 
+    sec_name, mark_name, father_name, mother_name, spouse_name, married_date, birth_type, 
+    birth_date, be_birth_leap_month, inherit, marriage, inherit_comment, education, career, 
+    chu_ji, chu_zhui, recruit_admitted, external_migration, line_guide_note, ma_area, 
+    ma_address_detail, be_devoice, death_type, death_date, be_death_leap_month, buried_place, 
+    story, other_content, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dlm.hmp.pojo.HmGatheringCardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from hm_gathering_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hm_gathering_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hm_gathering_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dlm.hmp.pojo.HmGatheringCard" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hm_gathering_card (hgc_id, bloody_flag, household_code, 
+      member_name, gender, ranking, 
+      pregnant, sec_name, mark_name, 
+      father_name, mother_name, spouse_name, 
+      married_date, birth_type, birth_date, 
+      be_birth_leap_month, inherit, marriage, 
+      inherit_comment, education, career, 
+      chu_ji, chu_zhui, recruit_admitted, 
+      external_migration, line_guide_note, ma_area, 
+      ma_address_detail, be_devoice, death_type, 
+      death_date, be_death_leap_month, buried_place, 
+      story, other_content, create_time, 
+      update_time)
+    values (#{hgcId,jdbcType=INTEGER}, #{bloodyFlag,jdbcType=INTEGER}, #{householdCode,jdbcType=VARCHAR}, 
+      #{memberName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{ranking,jdbcType=INTEGER}, 
+      #{pregnant,jdbcType=INTEGER}, #{secName,jdbcType=VARCHAR}, #{markName,jdbcType=VARCHAR}, 
+      #{fatherName,jdbcType=VARCHAR}, #{motherName,jdbcType=VARCHAR}, #{spouseName,jdbcType=VARCHAR}, 
+      #{marriedDate,jdbcType=VARCHAR}, #{birthType,jdbcType=INTEGER}, #{birthDate,jdbcType=VARCHAR}, 
+      #{beBirthLeapMonth,jdbcType=INTEGER}, #{inherit,jdbcType=INTEGER}, #{marriage,jdbcType=INTEGER}, 
+      #{inheritComment,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{career,jdbcType=VARCHAR}, 
+      #{chuJi,jdbcType=VARCHAR}, #{chuZhui,jdbcType=VARCHAR}, #{recruitAdmitted,jdbcType=INTEGER}, 
+      #{externalMigration,jdbcType=VARCHAR}, #{lineGuideNote,jdbcType=VARCHAR}, #{maArea,jdbcType=VARCHAR}, 
+      #{maAddressDetail,jdbcType=VARCHAR}, #{beDevoice,jdbcType=INTEGER}, #{deathType,jdbcType=INTEGER}, 
+      #{deathDate,jdbcType=VARCHAR}, #{beDeathLeapMonth,jdbcType=INTEGER}, #{buriedPlace,jdbcType=VARCHAR}, 
+      #{story,jdbcType=VARCHAR}, #{otherContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dlm.hmp.pojo.HmGatheringCard" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into hm_gathering_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hgcId != null" >
+        hgc_id,
+      </if>
+      <if test="bloodyFlag != null" >
+        bloody_flag,
+      </if>
+      <if test="householdCode != null" >
+        household_code,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="ranking != null" >
+        ranking,
+      </if>
+      <if test="pregnant != null" >
+        pregnant,
+      </if>
+      <if test="secName != null" >
+        sec_name,
+      </if>
+      <if test="markName != null" >
+        mark_name,
+      </if>
+      <if test="fatherName != null" >
+        father_name,
+      </if>
+      <if test="motherName != null" >
+        mother_name,
+      </if>
+      <if test="spouseName != null" >
+        spouse_name,
+      </if>
+      <if test="marriedDate != null" >
+        married_date,
+      </if>
+      <if test="birthType != null" >
+        birth_type,
+      </if>
+      <if test="birthDate != null" >
+        birth_date,
+      </if>
+      <if test="beBirthLeapMonth != null" >
+        be_birth_leap_month,
+      </if>
+      <if test="inherit != null" >
+        inherit,
+      </if>
+      <if test="marriage != null" >
+        marriage,
+      </if>
+      <if test="inheritComment != null" >
+        inherit_comment,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="career != null" >
+        career,
+      </if>
+      <if test="chuJi != null" >
+        chu_ji,
+      </if>
+      <if test="chuZhui != null" >
+        chu_zhui,
+      </if>
+      <if test="recruitAdmitted != null" >
+        recruit_admitted,
+      </if>
+      <if test="externalMigration != null" >
+        external_migration,
+      </if>
+      <if test="lineGuideNote != null" >
+        line_guide_note,
+      </if>
+      <if test="maArea != null" >
+        ma_area,
+      </if>
+      <if test="maAddressDetail != null" >
+        ma_address_detail,
+      </if>
+      <if test="beDevoice != null" >
+        be_devoice,
+      </if>
+      <if test="deathType != null" >
+        death_type,
+      </if>
+      <if test="deathDate != null" >
+        death_date,
+      </if>
+      <if test="beDeathLeapMonth != null" >
+        be_death_leap_month,
+      </if>
+      <if test="buriedPlace != null" >
+        buried_place,
+      </if>
+      <if test="story != null" >
+        story,
+      </if>
+      <if test="otherContent != null" >
+        other_content,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hgcId != null" >
+        #{hgcId,jdbcType=INTEGER},
+      </if>
+      <if test="bloodyFlag != null" >
+        #{bloodyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="householdCode != null" >
+        #{householdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="ranking != null" >
+        #{ranking,jdbcType=INTEGER},
+      </if>
+      <if test="pregnant != null" >
+        #{pregnant,jdbcType=INTEGER},
+      </if>
+      <if test="secName != null" >
+        #{secName,jdbcType=VARCHAR},
+      </if>
+      <if test="markName != null" >
+        #{markName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherName != null" >
+        #{fatherName,jdbcType=VARCHAR},
+      </if>
+      <if test="motherName != null" >
+        #{motherName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseName != null" >
+        #{spouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="marriedDate != null" >
+        #{marriedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="birthType != null" >
+        #{birthType,jdbcType=INTEGER},
+      </if>
+      <if test="birthDate != null" >
+        #{birthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="beBirthLeapMonth != null" >
+        #{beBirthLeapMonth,jdbcType=INTEGER},
+      </if>
+      <if test="inherit != null" >
+        #{inherit,jdbcType=INTEGER},
+      </if>
+      <if test="marriage != null" >
+        #{marriage,jdbcType=INTEGER},
+      </if>
+      <if test="inheritComment != null" >
+        #{inheritComment,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="career != null" >
+        #{career,jdbcType=VARCHAR},
+      </if>
+      <if test="chuJi != null" >
+        #{chuJi,jdbcType=VARCHAR},
+      </if>
+      <if test="chuZhui != null" >
+        #{chuZhui,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitAdmitted != null" >
+        #{recruitAdmitted,jdbcType=INTEGER},
+      </if>
+      <if test="externalMigration != null" >
+        #{externalMigration,jdbcType=VARCHAR},
+      </if>
+      <if test="lineGuideNote != null" >
+        #{lineGuideNote,jdbcType=VARCHAR},
+      </if>
+      <if test="maArea != null" >
+        #{maArea,jdbcType=VARCHAR},
+      </if>
+      <if test="maAddressDetail != null" >
+        #{maAddressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="beDevoice != null" >
+        #{beDevoice,jdbcType=INTEGER},
+      </if>
+      <if test="deathType != null" >
+        #{deathType,jdbcType=INTEGER},
+      </if>
+      <if test="deathDate != null" >
+        #{deathDate,jdbcType=VARCHAR},
+      </if>
+      <if test="beDeathLeapMonth != null" >
+        #{beDeathLeapMonth,jdbcType=INTEGER},
+      </if>
+      <if test="buriedPlace != null" >
+        #{buriedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null" >
+        #{story,jdbcType=VARCHAR},
+      </if>
+      <if test="otherContent != null" >
+        #{otherContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dlm.hmp.pojo.HmGatheringCardExample" resultType="java.lang.Integer" >
+    select count(*) from hm_gathering_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dlm.hmp.pojo.HmGatheringCard" >
+    update hm_gathering_card
+    <set >
+      <if test="hgcId != null" >
+        hgc_id = #{hgcId,jdbcType=INTEGER},
+      </if>
+      <if test="bloodyFlag != null" >
+        bloody_flag = #{bloodyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="householdCode != null" >
+        household_code = #{householdCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="ranking != null" >
+        ranking = #{ranking,jdbcType=INTEGER},
+      </if>
+      <if test="pregnant != null" >
+        pregnant = #{pregnant,jdbcType=INTEGER},
+      </if>
+      <if test="secName != null" >
+        sec_name = #{secName,jdbcType=VARCHAR},
+      </if>
+      <if test="markName != null" >
+        mark_name = #{markName,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherName != null" >
+        father_name = #{fatherName,jdbcType=VARCHAR},
+      </if>
+      <if test="motherName != null" >
+        mother_name = #{motherName,jdbcType=VARCHAR},
+      </if>
+      <if test="spouseName != null" >
+        spouse_name = #{spouseName,jdbcType=VARCHAR},
+      </if>
+      <if test="marriedDate != null" >
+        married_date = #{marriedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="birthType != null" >
+        birth_type = #{birthType,jdbcType=INTEGER},
+      </if>
+      <if test="birthDate != null" >
+        birth_date = #{birthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="beBirthLeapMonth != null" >
+        be_birth_leap_month = #{beBirthLeapMonth,jdbcType=INTEGER},
+      </if>
+      <if test="inherit != null" >
+        inherit = #{inherit,jdbcType=INTEGER},
+      </if>
+      <if test="marriage != null" >
+        marriage = #{marriage,jdbcType=INTEGER},
+      </if>
+      <if test="inheritComment != null" >
+        inherit_comment = #{inheritComment,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="career != null" >
+        career = #{career,jdbcType=VARCHAR},
+      </if>
+      <if test="chuJi != null" >
+        chu_ji = #{chuJi,jdbcType=VARCHAR},
+      </if>
+      <if test="chuZhui != null" >
+        chu_zhui = #{chuZhui,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitAdmitted != null" >
+        recruit_admitted = #{recruitAdmitted,jdbcType=INTEGER},
+      </if>
+      <if test="externalMigration != null" >
+        external_migration = #{externalMigration,jdbcType=VARCHAR},
+      </if>
+      <if test="lineGuideNote != null" >
+        line_guide_note = #{lineGuideNote,jdbcType=VARCHAR},
+      </if>
+      <if test="maArea != null" >
+        ma_area = #{maArea,jdbcType=VARCHAR},
+      </if>
+      <if test="maAddressDetail != null" >
+        ma_address_detail = #{maAddressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="beDevoice != null" >
+        be_devoice = #{beDevoice,jdbcType=INTEGER},
+      </if>
+      <if test="deathType != null" >
+        death_type = #{deathType,jdbcType=INTEGER},
+      </if>
+      <if test="deathDate != null" >
+        death_date = #{deathDate,jdbcType=VARCHAR},
+      </if>
+      <if test="beDeathLeapMonth != null" >
+        be_death_leap_month = #{beDeathLeapMonth,jdbcType=INTEGER},
+      </if>
+      <if test="buriedPlace != null" >
+        buried_place = #{buriedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null" >
+        story = #{story,jdbcType=VARCHAR},
+      </if>
+      <if test="otherContent != null" >
+        other_content = #{otherContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dlm.hmp.pojo.HmGatheringCard" >
+    update hm_gathering_card
+    set hgc_id = #{hgcId,jdbcType=INTEGER},
+      bloody_flag = #{bloodyFlag,jdbcType=INTEGER},
+      household_code = #{householdCode,jdbcType=VARCHAR},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      ranking = #{ranking,jdbcType=INTEGER},
+      pregnant = #{pregnant,jdbcType=INTEGER},
+      sec_name = #{secName,jdbcType=VARCHAR},
+      mark_name = #{markName,jdbcType=VARCHAR},
+      father_name = #{fatherName,jdbcType=VARCHAR},
+      mother_name = #{motherName,jdbcType=VARCHAR},
+      spouse_name = #{spouseName,jdbcType=VARCHAR},
+      married_date = #{marriedDate,jdbcType=VARCHAR},
+      birth_type = #{birthType,jdbcType=INTEGER},
+      birth_date = #{birthDate,jdbcType=VARCHAR},
+      be_birth_leap_month = #{beBirthLeapMonth,jdbcType=INTEGER},
+      inherit = #{inherit,jdbcType=INTEGER},
+      marriage = #{marriage,jdbcType=INTEGER},
+      inherit_comment = #{inheritComment,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      career = #{career,jdbcType=VARCHAR},
+      chu_ji = #{chuJi,jdbcType=VARCHAR},
+      chu_zhui = #{chuZhui,jdbcType=VARCHAR},
+      recruit_admitted = #{recruitAdmitted,jdbcType=INTEGER},
+      external_migration = #{externalMigration,jdbcType=VARCHAR},
+      line_guide_note = #{lineGuideNote,jdbcType=VARCHAR},
+      ma_area = #{maArea,jdbcType=VARCHAR},
+      ma_address_detail = #{maAddressDetail,jdbcType=VARCHAR},
+      be_devoice = #{beDevoice,jdbcType=INTEGER},
+      death_type = #{deathType,jdbcType=INTEGER},
+      death_date = #{deathDate,jdbcType=VARCHAR},
+      be_death_leap_month = #{beDeathLeapMonth,jdbcType=INTEGER},
+      buried_place = #{buriedPlace,jdbcType=VARCHAR},
+      story = #{story,jdbcType=VARCHAR},
+      other_content = #{otherContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

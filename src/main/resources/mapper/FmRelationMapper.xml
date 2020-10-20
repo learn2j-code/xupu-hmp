@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dlm.hmp.mapper.FmRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.dlm.hmp.pojo.FmRelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="family_id" property="familyId" jdbcType="INTEGER" />
+    <result column="rel_type" property="relType" jdbcType="INTEGER" />
+    <result column="ma_id" property="maId" jdbcType="INTEGER" />
+    <result column="mb_id" property="mbId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, family_id, rel_type, ma_id, mb_id, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dlm.hmp.pojo.FmRelationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from fm_relation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fm_relation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fm_relation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dlm.hmp.pojo.FmRelation" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_relation (family_id, rel_type, ma_id, 
+      mb_id, create_time, update_time
+      )
+    values (#{familyId,jdbcType=INTEGER}, #{relType,jdbcType=INTEGER}, #{maId,jdbcType=INTEGER}, 
+      #{mbId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dlm.hmp.pojo.FmRelation" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into fm_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="familyId != null" >
+        family_id,
+      </if>
+      <if test="relType != null" >
+        rel_type,
+      </if>
+      <if test="maId != null" >
+        ma_id,
+      </if>
+      <if test="mbId != null" >
+        mb_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="familyId != null" >
+        #{familyId,jdbcType=INTEGER},
+      </if>
+      <if test="relType != null" >
+        #{relType,jdbcType=INTEGER},
+      </if>
+      <if test="maId != null" >
+        #{maId,jdbcType=INTEGER},
+      </if>
+      <if test="mbId != null" >
+        #{mbId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dlm.hmp.pojo.FmRelationExample" resultType="java.lang.Integer" >
+    select count(*) from fm_relation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dlm.hmp.pojo.FmRelation" >
+    update fm_relation
+    <set >
+      <if test="familyId != null" >
+        family_id = #{familyId,jdbcType=INTEGER},
+      </if>
+      <if test="relType != null" >
+        rel_type = #{relType,jdbcType=INTEGER},
+      </if>
+      <if test="maId != null" >
+        ma_id = #{maId,jdbcType=INTEGER},
+      </if>
+      <if test="mbId != null" >
+        mb_id = #{mbId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dlm.hmp.pojo.FmRelation" >
+    update fm_relation
+    set family_id = #{familyId,jdbcType=INTEGER},
+      rel_type = #{relType,jdbcType=INTEGER},
+      ma_id = #{maId,jdbcType=INTEGER},
+      mb_id = #{mbId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
